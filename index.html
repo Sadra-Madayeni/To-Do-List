@@ -13,28 +13,31 @@
         <header class="header">
             <div id="Banner">
                 <h3>To Do List</h3>
-                <form id="search-books">
-                    <input type="text" placeholder="Search Tasks">
-                    <br>
-                </form>
             </div>
         </header>
 
         <div class="Tasks-List">
 
             <form id="Checklist">
-                <input  id = "finished"type="button" value="Finished Tasks">
-                <input id= "progress"type="button" value="In Progress Tasks">
+                <label>
+                    <input id="finish" type="radio" name="taskStatus" value="finished">
+                    Finished Tasks
+                </label>
+                <label>
+                    <input id="notfinished" type="radio" name="taskStatus" value="progress">
+                    In Progress Tasks
+                </label>
             </form>
+
 
             <ul>
                 <li>
                     <span class="name">Task1</span>
-                    <input type="checkbox">
+                    <input class="Check" type="checkbox">
                 </li>
                 <li>
                     <span class="name">Task2</span>
-                    <input type="checkbox">
+                    <input class="Check" type="checkbox">
                 </li>
             </ul>
         </div>
