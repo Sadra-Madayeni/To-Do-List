@@ -1,52 +1,34 @@
-const finishedTasksButton = '<input type="checkbox">';
-
 const inputAddText = document.querySelector('.add-task input');
 
 const addButton = document.querySelector('.button');
-
 
 const finished = document.querySelector('#Checklist #finish');
 
 const notFinished = document.querySelector('#Checklist #notfinished');
 
-
-console.log(notFinished);
-
 const ul = document.querySelector('ul');
 
-
+addButton.addEventListener('click', addTasks);
 
 ul.addEventListener('click', Check);
 
+finished.addEventListener('click', filterTasks);
 
-let check = false;
+notFinished.addEventListener('click', filterTasks);
 
-function Check(e) {
-    if (e.target.type === 'checkbox') {
-        filterTasks();
 
+inputAddText.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+        addTasks(e);
     }
-}
+});
 
-
-function filterTasks() {
-    const isFinishedSelected = finished.checked;
-    const isNotFinishedSelected = notFinished.checked;
-
-    const listItems = ul.querySelectorAll('li');
-    listItems.forEach(function (item) {
-        const checkbox = item.querySelector('input[type="checkbox"]');
-        if (isFinishedSelected) {
-            item.style.display = checkbox.checked ? '' : 'none';
-        } else if (isNotFinishedSelected) {
-            item.style.display = checkbox.checked ? 'none' : '';
-        }
-    });
-}
-
-
+document.addEventListener('DOMContentLoaded', loadTasks);
 
 function addTasks(e) {
+
+    e.preventDefault();
+
     if (inputAddText.value.trim() !== '') {
         const newTaskHTML = `
             <li>
@@ -54,64 +36,81 @@ function addTasks(e) {
                 <input type="checkbox">
             </li>
         `;
-
         ul.innerHTML += newTaskHTML;
 
-        storeToLocatStorage(inputAddText.value);
+        storeToLocalStorage(inputAddText.value);
 
         inputAddText.value = '';
     }
-
-    e.preventDefault();
 }
 
+function Check(e) {
+    if (e.target.type === 'checkbox') {
 
-document.addEventListener('DOMContentLoaded', test);
-
-
-
-function test(e) {
-
-    let tasks;
-    if (localStorage.getItem('tasks') === null) {
-        tasks = [];
+        filterTasks();
     }
-    else {
-        tasks = localStorage.getItem('tasks').split(',');
+}
+
+function filterTasks() {
+
+    const isFinishedSelected = finished.checked;
+
+    const isNotFinishedSelected = notFinished.checked;
+
+    const listItems = ul.querySelectorAll('li');
+
+    listItems.forEach(function (item) {
+
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        if (isFinishedSelected) {
+            if (checkbox.checked) {
+                item.style.display = '';
+            }
+            else {
+                item.style.display = 'none';
+            }
+        } 
+        else if (isNotFinishedSelected) {
+            if (checkbox.checked) {
+
+                item.style.display = 'none';
+            }
+            else {
+                item.style.display = '';
+            }
+        }
+    });
+}
+
+function loadTasks() {
+    let tasks = localStorage.getItem('tasks');
+    if (tasks) {
+
+        tasks = tasks.split(',');
+
+        tasks.forEach(function (task) {
+            const newTaskHTML = `
+                <li>
+                    <span class="name">${task}</span>
+                    <input type="checkbox">
+                </li>
+            `;
+            ul.innerHTML += newTaskHTML;
+        });
     }
-
-    for (let item of tasks) {
-
-        const newTaskHTML = `
-            <li>
-                <span class="name">${item}</span>
-                <input type="checkbox">
-            </li>
-        `;
-
-        ul.innerHTML += newTaskHTML;
-    }
-
     filterTasks();
 }
 
+function storeToLocalStorage(task) {
+    let tasks = localStorage.getItem('tasks');
 
-function storeToLocatStorage(Tasks) {
-    let tasks;
-    if (localStorage.getItem('tasks') === null) {
+    if (tasks) {
+        tasks = tasks.split(',');
+    } else {
         tasks = [];
     }
-    else {
-        tasks = localStorage.getItem('tasks').split(',');
-    }
 
-    tasks.push(Tasks);
+    tasks.push(task);
 
-    localStorage.setItem('tasks', tasks);
+    localStorage.setItem('tasks', tasks.join(','));
 }
-
-
-addButton.addEventListener('click', addTasks);
-
-
-
