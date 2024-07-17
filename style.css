@@ -1,31 +1,49 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: monospace, sans-serif;
     background-color: #000;
     margin: 0;
     padding: 0;
     color: #fff;
+    animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .Full {
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     margin: 50px auto;
     background: #333;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Full:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .header {
     background: #666;
-    color: #fff;
+    justify-content: center;
     padding: 20px;
     text-align: center;
+    transition: background 0.3s ease;
+}
+
+.header:hover {
+    background: #555;
 }
 
 #Banner {
+    
     display: flex;
-    justify-content: space-between;
+    justify-content: center ;
     align-items: center;
 }
 
@@ -36,6 +54,12 @@ body {
     margin-left: 10px;
     background: #444;
     color: #fff;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+#search-books input:focus {
+    background: #555;
+    transform: scale(1.05);
 }
 
 .Tasks-List {
@@ -54,10 +78,16 @@ body {
     padding: 10px;
     border-bottom: 1px solid #555;
     background: #222;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .Tasks-List li:nth-child(even) {
     background: #111;
+}
+
+.Tasks-List li:hover {
+    background: #333;
+    transform: scale(1.02);
 }
 
 .name {
@@ -72,10 +102,12 @@ body {
     border-radius: 4px;
     padding: 5px 10px;
     font-size: 14px;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .delete:hover {
     background-color: #222;
+    transform: scale(1.05);
 }
 
 .add-task {
@@ -90,6 +122,11 @@ body {
     margin-bottom: 10px;
     font-size: 18px;
     color: #ccc;
+    transition: color 0.3s ease;
+}
+
+#seprate:hover {
+    color: #fff;
 }
 
 .add-task input {
@@ -99,6 +136,12 @@ body {
     border-radius: 4px;
     background: #444;
     color: #fff;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.add-task input:focus {
+    background: #555;
+    transform: scale(1.05);
 }
 
 .button {
@@ -109,8 +152,10 @@ body {
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .button:hover {
-    background: #444;
+    background: black;
+    transform: scale(1.05);
 }
